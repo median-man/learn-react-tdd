@@ -55,6 +55,14 @@ it('should set ProductList.props.onProductSelect', () => {
   expect(actual).toBe(expected);
 });
 
+it('should render the number of items in the cart', () => {
+  const expected = '3';
+  appWrapper.setState({ selectedProducts: [mockProducts[0], mockProducts[2]] });
+  const cartEl = appWrapper.find('.items-in-cart');
+  expect(cartEl.length).toEqual(1);
+  expect(cartEl.text()).toEqual(expect.stringContaining(expected));
+});
+
 it('should render without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);

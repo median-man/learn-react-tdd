@@ -25,6 +25,7 @@ class App extends Component {
     return (
       <div>
         <h1>My Product Store List</h1>
+        <p className="items-in-cart">Items in cart: {this.state.products.length}</p>
         <ProductList
           products={this.state.products}
           onProductSelect={this.handleProductSelect}
