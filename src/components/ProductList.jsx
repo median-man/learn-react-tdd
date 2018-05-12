@@ -1,14 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 function ProductList(props) {
-  const li = product => <li key={product.id}>{product.name} {product.brand}</li>;
-  return <ul>{props.products.map(li)}</ul>;
+  const { onProductSelect } = props;
+  return (
+    <ul>
+      {props.products.map(product => (
+        <li key={product.id}>
+          <div
+            role="button"
+            tabIndex="0"
+            onClick={() => onProductSelect(product)}
+            onKeyPress={() => onProductSelect(product)}
+          >
+            {product.name} {product.brand}
+          </div>
+        </li>))}
+    </ul>);
 }
 
 ProductList.propTypes = {
   products: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onProductSelect: PropTypes.func.isRequired,
 };
 
 export default ProductList;
