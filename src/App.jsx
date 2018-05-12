@@ -12,6 +12,7 @@ class App extends Component {
         { id: 3, name: 'Classic', brand: 'Reebok' },
       ],
     };
+    this.handleProductSelect = this.handleProductSelect.bind(this);
   }
 
   handleProductSelect(product) {
@@ -26,7 +27,7 @@ class App extends Component {
         <h1>My Product Store List</h1>
         <ProductList
           products={this.state.products}
-          onProductSelect={product => this.handleProductSelect(product)}
+          onProductSelect={this.handleProductSelect}
         />
       </div>
     );
