@@ -7,7 +7,7 @@ The code is wrtten as I follow [React + TDD = 💖][med-react-tdd], a post by [A
 * [Jest][jest]
 * [React][react]
 * [Create React App][gh-create-react-app]
-* [Enzyme][enzyme]
+* [Enzyme][enzyme] (and correct [adapter package][enzyme-pkgs])
 
 ## Breif Description
 Following the [post][med-react-tdd] by [ADDM][med-addm], this is an online shoe store application. A user may view a list of products, add products to the shopping cart, view the items in the cart, and filter products listed by brand.
@@ -21,3 +21,4 @@ Following the [post][med-react-tdd] by [ADDM][med-addm], this is an online shoe 
 [gh-create-react-app]: https://github.com/facebook/create-react-app
 [jest]: https://facebook.github.io/jest/
 [enzyme]: http://airbnb.io/enzyme/
+[enzyme-pkgs]: https://github.com/airbnb/enzyme/tree/master/packages
