@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 function ProductList(props) {
-  window.console.log(props.products);
-  return <div>ProductList</div>;
+  const li = product => <li key={product.id}>{product.name} {product.brand}</li>;
+  return <ul>{props.products.map(li)}</ul>;
 }
 
 ProductList.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.object),
-};
-
-ProductList.defaultProps = {
-  products: [],
+  products: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ProductList;
