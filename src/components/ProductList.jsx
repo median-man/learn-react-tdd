@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function ProductList(props) {
-  console.table(props.products);
+  window.console.log(props.products);
   return <div>ProductList</div>;
 }
 
