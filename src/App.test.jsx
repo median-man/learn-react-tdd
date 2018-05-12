@@ -23,7 +23,7 @@ function findProductList() {
   return appWrapper.find(ProductList);
 }
 
-it('handleProductSelect() adds product to state.selectedProducts', () => {
+it('handleProductSelect() should add a product to state.selectedProducts', () => {
   const input = mockProducts[0];
   const expected = [input];
   let handleProductSelect;
@@ -40,26 +40,22 @@ it('handleProductSelect() adds product to state.selectedProducts', () => {
   expect(selectedProducts()).toEqual(expected);
 });
 
-it('renders a `<ProductList />`', () => {
+it('should render a `<ProductList />`', () => {
   expect(findProductList().length).toEqual(1);
 });
 
-it('sets ProductList.props.products', () => {
+it('should set ProductList.props.products', () => {
   appWrapper.setState({ products: mockProducts });
   expect(findProductList().prop('products')).toEqual(mockProducts);
 });
 
-it('sets ProductList.props.onProductSelect', () => {
+it('should set ProductList.props.onProductSelect', () => {
   const expected = appWrapper.instance().handleProductSelect;
   const actual = findProductList().prop('onProductSelect');
   expect(actual).toBe(expected);
 });
 
-it('renders heading', () => {
-  expect(appWrapper.find('h1').length).toEqual(1);
-});
-
-it('renders without crashing', () => {
+it('should render without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);
   ReactDOM.unmountComponentAtNode(div);
