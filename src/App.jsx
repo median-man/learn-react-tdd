@@ -32,8 +32,8 @@ class App extends Component {
     return (
       <div>
         <h1>My Product Store List</h1>
-        <p className="items-in-cart">Items in cart: {this.state.products.length}</p>
-        <BrandSelector
+        <p className="items-in-cart">Items in cart: {this.state.selectedProducts.length}</p>
+        Select Brand: <BrandSelector
           products={this.state.products}
           onBrandSelect={this.handleBrandSelect}
         />

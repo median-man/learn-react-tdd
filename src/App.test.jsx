@@ -75,7 +75,7 @@ it('should set ProductList.props.filter', () => {
 });
 
 it('should render the number of items in the cart', () => {
-  const expected = '3';
+  const expected = '2';
   appWrapper.setState({ selectedProducts: [mockProducts[0], mockProducts[2]] });
   const cartEl = appWrapper.find('.items-in-cart');
   expect(cartEl.length).toEqual(1);
