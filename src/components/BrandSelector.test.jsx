@@ -10,7 +10,7 @@ let mockBrands;
 let wrapper;
 let brandSelectFn;
 
-const findAllOptions = () => wrapper.find('option');
+const findAllBrandOptions = () => wrapper.find('option').findWhere(option => option.prop('value'));
 const createWrapper = () =>
   shallow(<BrandSelector products={mockProducts} onBrandSelect={brandSelectFn} />);
 
@@ -28,8 +28,14 @@ it('should render a `<select>` element', () => {
   expect(wrapper.find('select').length).toEqual(1);
 });
 
+it('should render the first `<option>` with value=""', () => {
+  const firstOption = wrapper.find('option').first();
+  expect(firstOption.prop('value')).toEqual('');
+});
+
 it('should render an `<option>` for each brand in props.products', () => {
-  const options = findAllOptions();
+  const expectedOptionCount = mockBrands.length;
+  const options = findAllBrandOptions();
   const optionIndex = 0;
   const optionWrapper = options.at(optionIndex);
 
@@ -41,7 +47,7 @@ it('should render an `<option>` for each brand in props.products', () => {
     return expect(optionWrapper.contains(mockBrands[optionIndex])).toBeTruthy();
   }
 
-  expect(options.length).toEqual(mockBrands.length);
+  expect(options.length).toEqual(expectedOptionCount);
   hasExpectedValue();
   containsBrandText();
 });
@@ -49,7 +55,7 @@ it('should render an `<option>` for each brand in props.products', () => {
 it('should not repeat brands', () => {
   mockProducts.push({ id: 3, name: 'Mock Product 3', brand: 'MockBrandA' });
   wrapper = createWrapper();
-  expect(findAllOptions().length).toEqual(mockBrands.length);
+  expect(findAllBrandOptions().length).toEqual(mockBrands.length);
 });
 
 describe('props.onBrandSelect()', () => {

@@ -6,6 +6,7 @@ function BrandSelector(props) {
   const brands = products => products.map(product => product.brand).filter(onlyUnique);
   return (
     <select onChange={event => props.onBrandSelect(event.target.value)}>
+      {<option value="" />}
       {brands(props.products)
           .map(brand => <option key={brand} value={brand}>{brand}</option>)}
     </select>
