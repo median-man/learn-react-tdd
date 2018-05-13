@@ -1,5 +1,4 @@
 import * as products from './products';
-import ProductList from '../components/ProductList';
 
 let mockProducts;
 const initialProducts = products.all();
@@ -53,5 +52,26 @@ describe('each product', () => {
       brand: expect.any(String),
     };
     products.all().forEach(product => expect(product).toMatchObject(matcher));
+  });
+});
+
+describe('allBrands()', () => {
+  let expectedBrands;
+
+  function testAllBrands() {
+    products.set(mockProducts);
+    expect(products.allBrands()).toEqual(expectedBrands);
+  }
+
+  it('should return an array of product brands', () => {
+    expectedBrands = mockProducts.map(product => product.brand);
+    testAllBrands();
+  });
+
+  it('should not have duplicate brands', () => {
+    const mockProduct = mockProducts[0];
+    expectedBrands = [mockProduct.brand];
+    mockProducts = [mockProduct, mockProduct];
+    testAllBrands();
   });
 });
