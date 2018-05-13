@@ -1,6 +1,7 @@
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
 import Enzyme, { shallow } from 'enzyme';
+import * as MockProducts from '../../tests/utils/MockProducts';
 import BrandSelector from './BrandSelector';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -11,15 +12,13 @@ let wrapper;
 let brandSelectFn;
 
 const findAllBrandOptions = () => wrapper.find('option').findWhere(option => option.prop('value'));
+
 const createWrapper = () =>
   shallow(<BrandSelector products={mockProducts} onBrandSelect={brandSelectFn} />);
 
 beforeEach(() => {
-  mockProducts = [
-    { id: 1, name: 'Mock Product 1', brand: 'MockBrandA' },
-    { id: 2, name: 'Mock Product 2', brand: 'MockBrandB' },
-  ];
-  mockBrands = ['MockBrandA', 'MockBrandB'];
+  mockProducts = MockProducts.create();
+  mockBrands = MockProducts.brands();
   brandSelectFn = jest.fn();
   wrapper = createWrapper();
 });
@@ -53,7 +52,7 @@ it('should render an `<option>` for each brand in props.products', () => {
 });
 
 it('should not repeat brands', () => {
-  mockProducts.push({ id: 3, name: 'Mock Product 3', brand: 'MockBrandA' });
+  mockProducts.push({ id: 4, name: 'Mock Product 4', brand: mockBrands[0] });
   wrapper = createWrapper();
   expect(findAllBrandOptions().length).toEqual(mockBrands.length);
 });

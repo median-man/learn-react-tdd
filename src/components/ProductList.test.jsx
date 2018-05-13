@@ -1,6 +1,7 @@
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
 import Enzyme, { shallow } from 'enzyme';
+import * as MockProducts from '../../tests/utils/MockProducts';
 import ProductList from './ProductList';
 
 describe('ProductList', () => {
@@ -11,11 +12,7 @@ describe('ProductList', () => {
   let productSelectFn;
 
   beforeEach(() => {
-    mockProducts = [
-      { id: 1, name: 'Mock Product 1', brand: 'MockBrandA' },
-      { id: 2, name: 'Mock Product 2', brand: 'MockBrandB' },
-      { id: 3, name: 'Mock Product 3', brand: 'MockBrandC' },
-    ];
+    mockProducts = MockProducts.create();
     productSelectFn = jest.fn();
 
     wrapper = shallow(<ProductList products={mockProducts} onProductSelect={productSelectFn} />);

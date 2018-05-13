@@ -1,13 +1,10 @@
+import * as MockProducts from '../../tests/utils/MockProducts';
 import * as products from './products';
 
 let mockProducts;
 const initialProducts = products.all();
 beforeEach(() => {
-  mockProducts = [
-    { id: 1, name: 'product 1', brand: 'brand 1' },
-    { id: 2, name: 'product 2', brand: 'brand 2' },
-    { id: 3, name: 'product 3', brand: 'brand 3' },
-  ];
+  mockProducts = MockProducts.create();
 });
 
 afterEach(() => {

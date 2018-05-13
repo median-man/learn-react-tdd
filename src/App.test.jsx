@@ -2,22 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Adapter from 'enzyme-adapter-react-16';
 import Enzyme, { shallow } from 'enzyme';
+import * as MockProducts from '../tests/utils/MockProducts';
 import ProductList from './components/ProductList';
 import BrandSelector from './components/BrandSelector';
 import * as products from './state/products';
 import App from './App';
-
 
 Enzyme.configure({ adapter: new Adapter() });
 
 let appWrapper;
 let mockProducts;
 beforeEach(() => {
-  mockProducts = [
-    { id: 1, name: 'Mock Product 1', brand: 'MockBrandA' },
-    { id: 2, name: 'Mock Product 2', brand: 'MockBrandB' },
-    { id: 3, name: 'Mock Product 3', brand: 'MockBrandC' },
-  ];
+  mockProducts = MockProducts.create();
   products.set(mockProducts);
   appWrapper = shallow(<App />);
   appWrapper.setState({ products: mockProducts, currentBrand: '' });
