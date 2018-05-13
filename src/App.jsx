@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import BrandSelector from './components/BrandSelector';
 import ProductList from './components/ProductList';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentBrand: '',
       selectedProducts: [],
       products: [
         { id: 1, name: 'AirMax 90', brand: 'Nike' },
@@ -13,12 +15,17 @@ class App extends Component {
       ],
     };
     this.handleProductSelect = this.handleProductSelect.bind(this);
+    this.handleBrandSelect = this.handleBrandSelect.bind(this);
   }
 
   handleProductSelect(product) {
-    this.setState(prevState => ({
-      selectedProducts: prevState.selectedProducts.concat(product),
-    }));
+    this.setState({
+      selectedProducts: this.state.selectedProducts.concat(product),
+    });
+  }
+
+  handleBrandSelect(brand) {
+    this.setState({ currentBrand: brand });
   }
 
   render() {
@@ -26,8 +33,13 @@ class App extends Component {
       <div>
         <h1>My Product Store List</h1>
         <p className="items-in-cart">Items in cart: {this.state.products.length}</p>
+        <BrandSelector
+          products={this.state.products}
+          onBrandSelect={this.handleBrandSelect}
+        />
         <ProductList
           products={this.state.products}
+          filter={{ brand: this.state.currentBrand }}
           onProductSelect={this.handleProductSelect}
         />
       </div>
