@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import BrandSelector from './components/BrandSelector';
 import ProductList from './components/ProductList';
 import * as products from './state/products';
+import Cart from './state/cart';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedProducts: [],
+      itemsInCart: Cart.count(),
       products: products.all(),
     };
     this.handleProductSelect = this.handleProductSelect.bind(this);
@@ -16,7 +17,7 @@ class App extends Component {
 
   handleProductSelect(product) {
     this.setState({
-      selectedProducts: this.state.selectedProducts.concat(product),
+      itemsInCart: Cart.addItem(product).count(),
     });
   }
 
@@ -30,7 +31,7 @@ class App extends Component {
     return (
       <div>
         <h1>My Product Store List</h1>
-        <p className="items-in-cart">Items in cart: {this.state.selectedProducts.length}</p>
+        <p className="items-in-cart">Items in cart: {this.state.itemsInCart}</p>
         Select Brand: <BrandSelector
           products={products.all()}
           onBrandSelect={this.handleBrandSelect}

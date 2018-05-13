@@ -23,32 +23,27 @@ function findProductList() {
   return appWrapper.find(ProductList);
 }
 
-it('handleProductSelect() should add a product to state.selectedProducts', () => {
-  const input = mockProducts[0];
-  const expected = [input];
-  let handleProductSelect;
-  let selectedProducts;
+describe('handleProductSelect()', () => {
+  const itemsInCart = () => appWrapper.state('itemsInCart');
 
-  const setUp = () => {
-    selectedProducts = () => appWrapper.state('selectedProducts');
-    ({ handleProductSelect } = appWrapper.instance());
-    expect(selectedProducts()).toEqual([]);
-  };
-
-  setUp();
-  handleProductSelect(input);
-  expect(selectedProducts()).toEqual(expected);
+  it('handleProductSelect() should update state.itemsInCart', () => {
+    const input = mockProducts[0];
+    const expected = itemsInCart() + 1;
+    const { handleProductSelect } = appWrapper.instance();
+    handleProductSelect(input);
+    expect(itemsInCart()).toEqual(expected);
+  });
 });
 
-it('handleBrandSelect() should filter and update state.products', () => {
-  const expected = mockProducts.slice(0, 1);
-  const [{ brand: input }] = expected;
-
-  const { handleBrandSelect } = appWrapper.instance();
-  handleBrandSelect(input);
-
-  const actual = appWrapper.state('products');
-  expect(actual).toEqual(expected);
+describe('handleBrandSelect()', () => {
+  it('handleBrandSelect() should filter and update state.products', () => {
+    const expected = mockProducts.slice(0, 1);
+    const [{ brand: input }] = expected;
+    const { handleBrandSelect } = appWrapper.instance();
+    handleBrandSelect(input);
+    const actual = appWrapper.state('products');
+    expect(actual).toEqual(expected);
+  });
 });
 
 it('should render a `<ProductList />`', () => {
@@ -68,7 +63,7 @@ it('should set ProductList.props.onProductSelect', () => {
 
 it('should render the number of items in the cart', () => {
   const expected = '2';
-  appWrapper.setState({ selectedProducts: [mockProducts[0], mockProducts[2]] });
+  appWrapper.setState({ itemsInCart: expected });
   const cartEl = appWrapper.find('.items-in-cart');
   expect(cartEl.length).toEqual(1);
   expect(cartEl.text()).toEqual(expect.stringContaining(expected));
