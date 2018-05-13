@@ -4,6 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import Enzyme, { shallow } from 'enzyme';
 import ProductList from './components/ProductList';
 import BrandSelector from './components/BrandSelector';
+import * as products from './state/products';
 import App from './App';
 
 
@@ -12,12 +13,13 @@ Enzyme.configure({ adapter: new Adapter() });
 let appWrapper;
 let mockProducts;
 beforeEach(() => {
-  appWrapper = shallow(<App />);
   mockProducts = [
-    { id: 1, name: 'AirMax 90', brand: 'Nike' },
-    { id: 2, name: 'Yeezy', brand: 'Adidas' },
-    { id: 3, name: 'Classic', brand: 'Reebok' },
+    { id: 1, name: 'Mock Product 1', brand: 'MockBrandA' },
+    { id: 2, name: 'Mock Product 2', brand: 'MockBrandB' },
+    { id: 3, name: 'Mock Product 3', brand: 'MockBrandC' },
   ];
+  products.set(mockProducts);
+  appWrapper = shallow(<App />);
   appWrapper.setState({ products: mockProducts, currentBrand: '' });
 });
 
@@ -42,13 +44,14 @@ it('handleProductSelect() should add a product to state.selectedProducts', () =>
   expect(selectedProducts()).toEqual(expected);
 });
 
-it('handleBrandSelect() should set state.currentBrand', () => {
-  const expected = 'mockBrand';
+it('handleBrandSelect() should filter and update state.products', () => {
+  const expected = mockProducts.slice(0, 1);
+  const [{ brand: input }] = expected;
 
   const { handleBrandSelect } = appWrapper.instance();
-  handleBrandSelect(expected);
+  handleBrandSelect(input);
 
-  const actual = appWrapper.state('currentBrand');
+  const actual = appWrapper.state('products');
   expect(actual).toEqual(expected);
 });
 
@@ -65,13 +68,6 @@ it('should set ProductList.props.onProductSelect', () => {
   const expected = appWrapper.instance().handleProductSelect;
   const actual = findProductList().prop('onProductSelect');
   expect(actual).toBe(expected);
-});
-
-it('should set ProductList.props.filter', () => {
-  const expected = { brand: 'testBrand' };
-  appWrapper.setState({ currentBrand: 'testBrand' });
-  const actual = findProductList().prop('filter');
-  expect(actual).toEqual(expected);
 });
 
 it('should render the number of items in the cart', () => {
