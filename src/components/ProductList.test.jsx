@@ -43,6 +43,14 @@ describe('ProductList', () => {
     mockProducts.forEach(({ brand }, index) => containsTextAt(brand, index));
   });
 
+  describe('when props.filter.brand is is set', () => {
+    it('should render a filtered list of products', () => {
+      const excludedBrand = mockProducts[1].brand;
+      wrapper.setProps({ filter: { brand: mockProducts[0].brand } });
+      expect(wrapper.contains(excludedBrand)).toBeFalsy();
+    });
+  });
+
   describe('props.onProductSelect()', () => {
     let firstEl;
 
